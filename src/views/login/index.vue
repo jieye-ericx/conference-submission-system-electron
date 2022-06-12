@@ -1,11 +1,19 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">期刊投稿系统登陆</h3>
       </div>
-
+      <el-form-item prop="role">
+        <span class="svg-container">
+          <i class="el-icon-s-cooperation" />
+        </span>
+        <el-select v-model="loginForm.role">
+          <el-option label="普通用户" value="0" />
+          <el-option label="审稿人" value="1" />
+          <el-option label="超管" value="2" />
+        </el-select>
+      </el-form-item>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -40,15 +48,45 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
+      <el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+        <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleLogin">登陆</el-button>
+        <el-button type="info" style="width:100%;margin:0px;" @click.native.prevent="dialogRegisterFormVisible=true">注册</el-button>
+      </el-form-item>
 
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
-      </div>
+      </div> -->
 
     </el-form>
+
+    <el-dialog title="用户注册" :visible.sync="dialogRegisterFormVisible">
+      <el-form :model="registerForm">
+        <el-form-item label="邮箱" :label-width="formLabelWidth">
+          <el-input v-model="registerForm.email" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="用户名" :label-width="formLabelWidth">
+          <el-input v-model="registerForm.userName" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="真名" :label-width="formLabelWidth">
+          <el-input v-model="registerForm.realName" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="registerForm.password" show-password autocomplete="off" />
+        </el-form-item>
+        <!-- <el-form-item label="活动区域" :label-width="formLabelWidth">
+          <el-select v-model="registerForm.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai" />
+            <el-option label="区域二" value="beijing" />
+          </el-select>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogRegisterFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleRegister">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -66,21 +104,30 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (value.length < 4) {
+        callback(new Error('The password can not be less than 4 digits'))
       } else {
         callback()
       }
     }
     return {
+      dialogRegisterFormVisible: false,
+      registerForm: {
+        'userName': 'obama',
+        'password': '12345',
+        'email': '83459903411@qq.com',
+        realName: '韩逍'
+      },
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        role: '0',
+        username: 'obama',
+        password: '12345'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
+      formLabelWidth: '120px',
       loading: false,
       passwordType: 'password',
       redirect: undefined
@@ -109,17 +156,51 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          this.$store.dispatch('user/login', this.loginForm).then(async() => {
+            this.$router.push({ path: '/' })
+            //
+            await this.$store.dispatch('user/getInfo')
+            this.$goeasy.connect({
+              id: this.$store.getters.userInfo.id,
+              onSuccess: function() { // 连接成功
+                console.log('GoEasy connect successfully.') // 连接成功
+              },
+              onFailed: function(error) { // 连接失败
+                console.log('Failed to connect GoEasy, code:' + error.code + ',error:' + error.content)
+              },
+              onProgress: function(attempts) { // 连接或自动重连中
+                console.log('GoEasy is connecting', attempts)
+              }
+            })
+            this.$goeasy.pubsub.subscribe({
+              channel: 'my_channel_' + this.$store.getters.userInfo.id,
+              onSuccess: function() {
+                console.log('GoEasy 订阅成功')
+              },
+              onFailed: function(error) {
+                console.log('GoEasy 订阅失败: ' + error.content)
+              },
+              onMessage: function(message) {
+                console.log('GoEasy Channel:' + message.channel + ' content:' + message.content)
+              }
+            })
+            //
             this.loading = false
           }).catch(() => {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          this.$message.error('登录信息校验不通过')
           return false
         }
       })
+    },
+    async handleRegister() {
+      const res = await this.$store.dispatch('user/register', this.registerForm)
+      if (res.code === 200) {
+        this.$message.success('注册成功，请登录')
+        this.dialogRegisterFormVisible = false
+      }
     }
   }
 }

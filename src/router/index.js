@@ -54,25 +54,80 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-
   {
-    path: '/example',
+    path: '/profile',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'index',
+        name: 'Profile',
+        component: () => import('@/views/profile/index'),
+        meta: { title: '个人中心', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    component: Layout,
+    meta: { title: '超管论文', icon: 'dashboard' },
+    children: [{
+      path: 'allocate',
+      name: 'AdminPaperAllocate',
+      component: () => import('@/views/admin/paper/allocate'),
+      meta: { title: '待确定分配', icon: 'dashboard' }
+    }, {
+      path: 'reviewing',
+      name: 'AdminPaperReviewing',
+      component: () => import('@/views/admin/paper/reviewing'),
+      meta: { title: '审稿中', icon: 'dashboard' }
+    }, {
+      path: 'modifing',
+      name: 'AdminPaperModifing',
+      component: () => import('@/views/admin/paper/modify'),
+      meta: { title: '退回修改中', icon: 'dashboard' }
+    },
+    {
+      path: 'finished',
+      name: 'AdminPaperFinished',
+      component: () => import('@/views/admin/paper/finished'),
+      meta: { title: '审稿结束', icon: 'dashboard' }
+    }]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    meta: { title: '用户论文', icon: 'dashboard' },
+    children: [
+      {
+        path: 'submit',
+        name: 'UserPaperSubmit',
+        component: () => import('@/views/user/paper/submit'),
+        meta: { title: '提交论文', icon: 'form' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'list',
+        name: 'UserPaperList',
+        component: () => import('@/views/user/paper/index'),
+        meta: { title: '我的论文', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/reviewer',
+    component: Layout,
+    meta: { title: '审稿人论文', icon: 'dashboard' },
+    children: [
+      {
+        path: 'invites',
+        name: 'ReviewerInvites',
+        component: () => import('@/views/reviewer/paper/invites'),
+        meta: { title: '查看邀约', icon: 'form' }
+      },
+      {
+        path: 'review',
+        name: 'ReviewerReview',
+        component: () => import('@/views/reviewer/paper/review'),
+        meta: { title: '审阅论文', icon: 'form' }
       }
     ]
   },

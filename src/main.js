@@ -15,6 +15,18 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import * as API from '@/api'
+// console.log(API)
+// import message from '@/utils/message'
+
+import GoEasy from 'goeasy'
+Vue.prototype.$goeasy = GoEasy.getInstance({
+  host: 'hangzhou.goeasy.io', // 若是新加坡区域：singapore.goeasy.io
+  appkey: 'BC-3f8da063d00d4983a29d0189ec2cdbe4',
+  modules: ['pubsub']// 根据需要，传入‘pubsub’或'im’，或数组方式同时传入
+})
+
+// Vue.prototype.$message = message
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -37,6 +49,10 @@ Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
+  beforeCreate() {
+    Vue.prototype.$bus = this
+    Vue.prototype.$API = API.default
+  },
   router,
   store,
   render: h => h(App)

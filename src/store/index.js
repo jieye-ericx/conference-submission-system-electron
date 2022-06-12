@@ -4,6 +4,9 @@ import getters from './getters'
 import app from './modules/app'
 import settings from './modules/settings'
 import user from './modules/user'
+import service from './modules/service'
+import paper from './modules/paper'
+import reviewer from './modules/reviewer'
 
 Vue.use(Vuex)
 
@@ -11,7 +14,10 @@ const store = new Vuex.Store({
   modules: {
     app,
     settings,
-    user
+    user,
+    service,
+    paper,
+    reviewer
   },
   getters
 })
