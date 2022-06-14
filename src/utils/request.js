@@ -5,9 +5,12 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: 'http://192.168.3.131:18888/papersubmission/',
+  // baseURL: 'http://47.103.212.239:18888/',
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000, // request timeout
+  withCredentials: true
 })
 
 // request interceptor
@@ -23,6 +26,8 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['X-token'] = getToken()
+      config.headers['Origin'] = 'http://localhost:8080'
+      console.log(config.headers)
     }
     return config
   },
