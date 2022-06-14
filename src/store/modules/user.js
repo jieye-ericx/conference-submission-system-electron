@@ -4,21 +4,22 @@ import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
+    userRole: '',
     roles: [{
       value: 0,
       role: 0,
       text: '普通用户',
-      color: ''
+      eng: 'user'
     }, {
       value: 1,
       role: 1,
       text: '审稿人',
-      color: ''
+      eng: 'reviewer'
     }, {
       value: 2,
       role: 2,
       text: '超管',
-      color: ''
+      eng: 'admin'
     }],
     token: getToken(),
     userInfo: {
@@ -49,6 +50,7 @@ const mutations = {
     //   state.userInfo[key] = value
     // }
     state.userInfo = data
+    state.userRole = state.roles.find(ele => ele.role === data.role).eng
   }
 }
 

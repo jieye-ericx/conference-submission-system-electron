@@ -120,7 +120,7 @@ export default {
       },
       loginForm: {
         role: '0',
-        username: 'obama',
+        username: 'user1',
         password: '12345'
       },
       loginRules: {

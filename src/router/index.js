@@ -43,33 +43,81 @@ export const constantRoutes = [
     hidden: true
   },
 
+  // {
+  //   // hidden: true,
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'Dashboard', icon: 'dashboard' }
+  //   }]
+  // },
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
-  },
-  {
-    path: '/profile',
-    component: Layout,
+    redirect: '/profile',
     children: [
       {
-        path: 'index',
+        path: 'profile',
         name: 'Profile',
         component: () => import('@/views/profile/index'),
         meta: { title: '个人中心', icon: 'form' }
       }
     ]
   },
+
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+
+export const asyncRoutes = [
+  {
+    path: '/user',
+    component: Layout,
+    meta: { title: '用户论文', icon: 'dashboard', roles: ['admin', 'user'] },
+    children: [
+      {
+        path: 'submit',
+        name: 'UserPaperSubmit',
+        component: () => import('@/views/user/paper/submit'),
+        meta: { title: '提交论文', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'UserPaperList',
+        component: () => import('@/views/user/paper/index'),
+        meta: { title: '我的论文', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/reviewer',
+    component: Layout,
+    meta: {
+      title: '审稿人论文', icon: 'dashboard', roles: ['admin', 'reviewer']
+    },
+    children: [
+      {
+        path: 'invites',
+        name: 'ReviewerInvites',
+        component: () => import('@/views/reviewer/paper/invites'),
+        meta: { title: '查看邀约', icon: 'form' }
+      },
+      {
+        path: 'review',
+        name: 'ReviewerReview',
+        component: () => import('@/views/reviewer/paper/review'),
+        meta: { title: '审阅论文', icon: 'form' }
+      }
+    ]
+  },
   {
     path: '/admin',
     component: Layout,
-    meta: { title: '超管论文', icon: 'dashboard' },
+    meta: { title: '超管论文', icon: 'dashboard', roles: ['admin'] },
     children: [{
       path: 'allocate',
       name: 'AdminPaperAllocate',
@@ -92,133 +140,10 @@ export const constantRoutes = [
       component: () => import('@/views/admin/paper/finished'),
       meta: { title: '审稿结束', icon: 'dashboard' }
     }]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    meta: { title: '用户论文', icon: 'dashboard' },
-    children: [
-      {
-        path: 'submit',
-        name: 'UserPaperSubmit',
-        component: () => import('@/views/user/paper/submit'),
-        meta: { title: '提交论文', icon: 'form' }
-      },
-      {
-        path: 'list',
-        name: 'UserPaperList',
-        component: () => import('@/views/user/paper/index'),
-        meta: { title: '我的论文', icon: 'table' }
-      }
-    ]
-  },
-  {
-    path: '/reviewer',
-    component: Layout,
-    meta: { title: '审稿人论文', icon: 'dashboard' },
-    children: [
-      {
-        path: 'invites',
-        name: 'ReviewerInvites',
-        component: () => import('@/views/reviewer/paper/invites'),
-        meta: { title: '查看邀约', icon: 'form' }
-      },
-      {
-        path: 'review',
-        name: 'ReviewerReview',
-        component: () => import('@/views/reviewer/paper/review'),
-        meta: { title: '审阅论文', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  }
 ]
 
+//
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),

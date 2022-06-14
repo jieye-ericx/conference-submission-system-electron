@@ -7,6 +7,7 @@ import user from './modules/user'
 import service from './modules/service'
 import paper from './modules/paper'
 import reviewer from './modules/reviewer'
+import permission from './modules/permission'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
     user,
     service,
     paper,
-    reviewer
+    reviewer,
+    permission
   },
   getters
 })

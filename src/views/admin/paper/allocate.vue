@@ -9,9 +9,12 @@
       <template v-slot:option="slotProps">
         <!-- <el-button type="primary" size="mini" @click="handleEdit(slotProps.scope.$index, slotProps.scope.row)">分配审稿人
         </el-button> -->
-        <el-button size="mini" type="danger" plain @click.stop="handleReject(slotProps.scope.$index, slotProps.scope.row)">
-          拒收
+        <el-button size="mini" type="primary" plain>
+          分配
         </el-button>
+        <!-- <el-button size="mini" type="danger" plain @click.stop="handleReject(slotProps.scope.$index, slotProps.scope.row)">
+          拒收
+        </el-button> -->
       </template>
     </PaperTable>
     <el-dialog title="论文详情" :visible.sync="dialogPaperDetailVisible" width="80%">

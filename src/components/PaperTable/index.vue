@@ -11,7 +11,7 @@
         align="center"
         prop="type"
         label="类别"
-        width="120"
+        width="140"
       />
       <el-table-column
         align="center"
@@ -42,7 +42,7 @@
         align="center"
         prop="title"
         label="标题"
-        width="240"
+        width="280"
       />
       <slot name="column" />
       <el-table-column align="center" label="操作">

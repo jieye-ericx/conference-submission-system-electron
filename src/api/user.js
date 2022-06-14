@@ -41,6 +41,16 @@ export function searchUser(key) {
   })
 }
 
+export function getPaperSuggestion(data) {
+  return request({
+    url: 'submitPaper/getSuggestion',
+    method: 'get',
+    params: {
+      ...data
+    }
+  })
+}
+
 export function updateUser(data) {
   return request({
     url: '/client/updateClientInfo',

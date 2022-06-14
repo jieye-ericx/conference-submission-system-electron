@@ -21,16 +21,16 @@
                           {{ reviewerStatus[item.status].text }}
                         </el-tag>
                       </el-col>
-                      <el-col v-if="item.status===2" :span="10" :offset="1">
+                      <el-col v-if="item.status===2" :span="10" :offset="0">
                         <el-tag style="height:40px;line-height:40px" :type="item.conclusion===0?'success':'warning'">
                           {{ item.conclusion === 0 ? '通过':'退回' }}
                         </el-tag>
                         <el-button
-                          size="small"
+                          size="mini"
                           style="height:40px;margin-left: 5px;"
                           type="primary"
                           plain
-                          @click="openSuggestion"
+                          @click="openSuggestion(item)"
                         >
                           查看意见
                         </el-button>
@@ -40,15 +40,15 @@
                   </div>
                 </el-card>
               </el-col>
-              <el-dialog title="反馈意见" :visible.sync="dialogSuggestionVisible" width="30%" center append-to-body>
-                <div>{{ item.suggestion }}</div>
-                <span slot="footer" class="dialog-footer">
-                  <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
-                </span>
-              </el-dialog>
-            </el-row>
 
+            </el-row>
+            <el-dialog title="反馈意见" :visible.sync="dialogSuggestionVisible" width="30%" center append-to-body>
+              <div>{{ publicSuggestion }}</div>
+              <span slot="footer" class="dialog-footer">
+                <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
+              </span>
+            </el-dialog>
           </el-collapse-item>
           <el-collapse-item name="2">
             <template slot="title">
@@ -169,6 +169,7 @@ export default {
   },
   data() {
     return {
+      publicSuggestion: '',
       paper: {},
       reviewers: [],
       reviewerId: [],
@@ -222,8 +223,9 @@ export default {
   async created() {
   },
   methods: {
-    openSuggestion() {
+    openSuggestion(data) {
       this.dialogSuggestionVisible = true
+      this.publicSuggestion = data.suggestion
     },
     downloadPaper() {
       window.open(this.paper.paperUrl, '_blank')

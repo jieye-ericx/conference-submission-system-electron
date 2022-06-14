@@ -108,4 +108,7 @@ export default {
 }
 </script>
 <style scope>
+.dd{
+  margin: 5px;
+}
 </style>

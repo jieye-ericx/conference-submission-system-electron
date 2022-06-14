@@ -6,6 +6,9 @@ const getters = {
   ossPolicy: s => s.service.fileUploadPolicy,
   paperStatus: s => s.paper.paperStatus,
   reviewerStatus: s => s.reviewer.reviewerStatus,
-  userRoles: s => s.user.roles
+  userRoles: s => s.user.roles,
+  userRole: s => s.user.userRole,
+  addRouters: s => s.permission.addRouters,
+  routers: s => s.permission.routers
 }
 export default getters

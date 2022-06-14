@@ -9,10 +9,18 @@
         <el-button
           size="mini"
           type="warning"
-          @click.stop="showSuggestion(slotProps.scope.$index, scope.row)"
-        >查看意见</el-button>
+          @click.stop="handleShowSuggestion(slotProps.scope.$index, slotProps.scope.row)"
+        >查看意见
+        </el-button>
       </template>
     </PaperTable>
+    <el-dialog title="反馈意见" :visible.sync="dialogSuggestionVisible" width="30%" center append-to-body>
+      <div>{{ succ }}</div>
+      <span slot="footer" class="dialog-footer">
+        <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -26,6 +34,8 @@ export default {
   },
   data() {
     return {
+      succ: '',
+      dialogSuggestionVisible: false
     }
   },
   computed: {
@@ -41,8 +51,15 @@ export default {
       // console.log(curPage, limit)
       return await this.$API.adminPaperList({ curPage, limit, status })
     },
-    showSuggestion() {
-
+    async handleShowSuggestion(index, row) {
+      const ans = await this.$API.getPaperSuggestion({ submitId: row.submitId })
+      // console.log(ans)
+      if (ans.code === 200) {
+        this.dialogSuggestionVisible = true
+        this.succ = ans.data.suggestion
+      } else {
+        this.$message.error('获取意见失败')
+      }
     }
   }
 }
