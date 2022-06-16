@@ -9,7 +9,7 @@ install:
 before_script:
 
 script:
-- npm run build
+- npm run build:prod
 
 after_script:
   - cd ./dist
