@@ -113,15 +113,15 @@ export default {
     return {
       dialogRegisterFormVisible: false,
       registerForm: {
-        'userName': 'obama',
-        'password': '12345',
-        'email': '83459903411@qq.com',
-        realName: '韩逍'
+        'userName': '',
+        'password': '',
+        'email': '',
+        realName: ''
       },
       loginForm: {
         role: '0',
-        username: 'user1',
-        password: '12345'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
