@@ -16,10 +16,11 @@ after_script:
   - git init
   - git config user.name "jieye/travis"
   - git config user.email "jieye.ericx@gmail.com"
-  - git add .
+  - git add -A
   - git commit -m "Travis CI Auto Builder"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:deploy
-  - ssh root@47.103.212.239 '${pass} && cd /paperSubmission/frontend_travis/ && mkdir aaa'
+  - git push -f https://${gtoken}@github.com/jieye-ericx/conference-submission-system master:deploy
+  - cd -
+  - ssh root@47.103.212.239 '${pass} && yes && cd /paperSubmission/frontend_travis/ && mkdir aaa'
   # git fetch --all && git reset --hard origin/deploy && git pull'
 
 
