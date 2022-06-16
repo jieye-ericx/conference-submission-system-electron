@@ -1,15 +1,28 @@
 language: node_js
 node_js:
-  - "node"
+- 16.15.0
+cache:
+  directories:
+  - node_modules
+install:
+- npm install
+before_script:
 
-cache: npm
+script:
+- npm run build
 
-script: npm run build:prod
+after_script:
+  - cd ./dist
+  - git init
+  - git config user.name "jieye/travis"
+  - git config user.email "jieye.ericx@gmail.com"
+  - git add .
+  - git commit -m "Travis CI Auto Builder"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:deploy
+  - ssh root@47.103.212.239 -p '${pass} cd /paperSubmission/frontend_travis/ && mkdir aaa'
+  # git fetch --all && git reset --hard origin/deploy && git pull'
 
-deploy:
-provider: pages
-skip_cleanup: true
-github_token: $GITHUB_TOKEN
-local_dir: dist
-on:
-  branch: master
+
+branches:
+  only:
+  - master
