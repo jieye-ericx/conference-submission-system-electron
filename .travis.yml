@@ -17,12 +17,13 @@ script:
 after_script:
   - sh ./deploy.sh
   # git fetch --all && git reset --hard origin/deploy && git pull'
+  - apt-get -y install sshpass
+  - sshpass -p 'Hx608136' scp -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/
 
 addons:
   ssh_known_hosts: 47.103.212.239 # 添加 SSH 信任列表
+
 after_success: # script 阶段成功时执行
-- apt-get -y install sshpass
-- sshpass -p 'Hx608136' scp -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/
 # - scp  -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/  # 使用scp拷贝到服务
 
 
