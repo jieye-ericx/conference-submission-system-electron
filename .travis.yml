@@ -22,7 +22,7 @@ script:
 after_script:
   - sh ./deploy.sh
   # git fetch --all && git reset --hard origin/deploy && git pull'
-  - sshpass -p '${pass}' scp -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/
+  - sshpass -p '${hxpass}' scp -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/
 
 addons:
   ssh_known_hosts: 47.103.212.239 # 添加 SSH 信任列表
