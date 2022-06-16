@@ -8,16 +8,16 @@ cache:
   directories:
   - node_modules
 install:
-- npm install
+  - apt-get -y install sshpass
+  - npm install
 before_script:
 
 script:
-- npm run build:prod
+  - npm run build:prod
 
 after_script:
   - sh ./deploy.sh
   # git fetch --all && git reset --hard origin/deploy && git pull'
-  - apt-get -y install sshpass
   - sshpass -p 'Hx608136' scp -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/
 
 addons:
