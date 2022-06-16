@@ -7,8 +7,12 @@ branches:
 cache:
   directories:
   - node_modules
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install sshpass
+
 install:
-  - apt-get -y install sshpass
   - npm install
 before_script:
 
