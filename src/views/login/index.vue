@@ -4,7 +4,7 @@
       <div class="title-container">
         <h3 class="title">期刊投稿系统</h3>
       </div>
-      <el-form-item prop="role">
+      <!-- <el-form-item prop="role">
         <span class="svg-container">
           <i class="el-icon-s-cooperation" />
         </span>
@@ -13,7 +13,7 @@
           <el-option label="审稿人" value="1" />
           <el-option label="超管" value="2" />
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -119,7 +119,7 @@ export default {
         realName: ''
       },
       loginForm: {
-        role: '0',
+        // role: '0',
         username: '',
         password: ''
       },
