@@ -45,11 +45,11 @@
 </template>
 
 <script>
-import PaperCategorySingle from '@/components/PaperCategory/single.vue'
+// import PaperCategorySingle from '@/components/PaperCategory/single.vue'
 import PaperCategoryMultiple from '@/components/PaperCategory/multiple.vue'
 export default {
   components: {
-    PaperCategorySingle,
+    // PaperCategorySingle,
     PaperCategoryMultiple
   },
   props: {

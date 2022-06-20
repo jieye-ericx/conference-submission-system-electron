@@ -17,7 +17,7 @@ export default (conf) => {
   return new OSS(conf)
 }
 // 文件上传
-export const put = async (filePath, fileUrl) => {
+export const put = async(filePath, fileUrl) => {
   try {
     const result = await client.put(filePath, fileUrl)
     return result
@@ -27,9 +27,9 @@ export const put = async (filePath, fileUrl) => {
 }
 
 // oss的地址
-export const getSystemPath = () => {
-  return ossPath
-}
+// export const getSystemPath = () => {
+//   return ossPath
+// }
 
 // 文件的上传地址
 export const getFilePath = (ObjName, orangeName) => {

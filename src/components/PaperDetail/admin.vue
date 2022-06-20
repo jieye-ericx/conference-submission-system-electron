@@ -5,7 +5,7 @@
       <div v-else>
         <el-collapse :value="adminUnEditable?['1']:['1','2','3']">
           <el-collapse-item title="审稿人状态" name="1">
-            <el-row v-for="(item,i) in reviewDetail.reviewDetailVos" :key="item.reviewerId" style="margin:5px 0;">
+            <el-row v-for="(item) in reviewDetail.reviewDetailVos" :key="item.reviewerId" style="margin:5px 0;">
               <el-col :span="22" :offset="1">
                 <el-card :body-style="{ padding: '0px' }">
                   <div style="padding: 5px 10px;">

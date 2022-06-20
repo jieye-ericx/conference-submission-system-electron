@@ -65,7 +65,8 @@ export default {
       // 1 普通用户修改论文
     },
     reviewerInviteId: {
-      type: Number
+      type: Number,
+      default: -1
     }
   },
   data() {

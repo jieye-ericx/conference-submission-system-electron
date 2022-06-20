@@ -101,16 +101,17 @@ export default {
       }
     }
   },
-  async created() {
-    // console.log(this.$parent)
-    await this.getData({ curPage: this.pagination.curPage, limit: this.pagination.pageSize })
-  },
   computed: {
     ...mapGetters([
       'paperStatus'
       // ...
     ])
   },
+  async created() {
+    // console.log(this.$parent)
+    await this.getData({ curPage: this.pagination.curPage, limit: this.pagination.pageSize })
+  },
+
   methods: {
     async getData({ curPage = 1, limit = 10, status }) {
       // console.log(curPage, limit)

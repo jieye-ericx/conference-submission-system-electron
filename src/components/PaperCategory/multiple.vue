@@ -10,7 +10,7 @@
 export default {
   name: 'PaperCategoryMultiple',
   props: {
-    value: [Array]
+    // value: [Array]
   },
   data() {
     return {
