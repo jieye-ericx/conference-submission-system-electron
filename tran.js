@@ -1,8 +1,8 @@
-var path = require('path')
+// var path = require('path')
 var fs = require('fs')
 var pathName = '/Users/likuihao/PycharmProjects/SMARTS-baseline/baselines/marl_benchmark/mydata/dqn_episodes'
 
-const readd = async (path) => {
+const readd = async(path) => {
   let cnt = 0
   const ans = await fs.readdirSync(path)
   // ans = ans.slice(0, 2)
@@ -20,7 +20,7 @@ const readd = async (path) => {
     'speed': gen_dict(1),
     'steering': gen_dict(1)
   }
-  for (fileName of ans) {
+  for (const fileName of ans) {
     const tmp = await require(pathName + '/' + fileName)
     // console.log(tmp)
     cnt += 1

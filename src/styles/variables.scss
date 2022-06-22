@@ -3,11 +3,15 @@ $menuText:#bfcbd9;
 $menuActiveText:#409EFF;
 $subMenuActiveText:#f4f4f5; //https://github.com/ElemeFE/element/issues/12951
 
-$menuBg:#304156;
-$menuHover:#263445;
+// $menuBg:#304156;
+// $menuHover:#263445;
 
-$subMenuBg:#1f2d3d;
-$subMenuHover:#001528;
+// $subMenuBg:#1f2d3d;
+// $subMenuHover:#001528;
+$menuBg:#19191A; // 菜单整体背景
+$menuHover: #19191A; // 菜单悬浮变色
+$subMenuBg:#19191A; // 子菜单背景
+$subMenuHover:#19191A; // 子菜单悬浮背景
 
 $sideBarWidth: 210px;
 

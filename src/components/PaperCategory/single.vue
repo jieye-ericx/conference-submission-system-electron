@@ -10,7 +10,7 @@
 export default {
   name: 'PaperCategorySingle',
   props: {
-    // value: [Number, String]
+    value: [Number, String]
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const defaultSettings = require('./src/settings.js')
+// const defaultSettings = require('./src/settings.js')
 // const ip = '172.30.224.76'
 // const ip ="192.168.3.131"
 function resolve(dir) {
@@ -14,7 +14,7 @@ const name = '论文投稿系统' // page title
 // For example, Mac: sudo npm run
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
-const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+// const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {

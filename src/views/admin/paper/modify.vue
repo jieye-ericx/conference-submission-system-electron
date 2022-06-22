@@ -6,17 +6,12 @@
         <el-table-column align="center" prop="firstAuthor" label="第一作者" width="100" />
       </template>
       <template v-slot:option="slotProps">
-        <el-button
-          v-if="[1].some(v => v === slotProps.scope.row.status)"
-          size="mini"
-          @click="handleEdit(slotProps.scope.$index, scope.row)"
-        >修改</el-button>
-        <el-button
+        <!-- <el-button
           v-if="[0, 4].some(v => v === slotProps.scope.row.status)"
           size="mini"
           type="danger"
           @click="handleEdit(slotProps.scope.$index, scope.row)"
-        >撤稿</el-button>
+        >撤稿</el-button> -->
         <el-button
           v-if="[1, 2, 5].some(v => v === slotProps.scope.row.status)"
           size="mini"

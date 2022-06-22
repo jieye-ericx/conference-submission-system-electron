@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-steps :active="stepActivate" align-center>
+    <!-- <el-steps :active="stepActivate" align-center>
       <el-step title="填写基本信息" icon="el-icon-edit" />
       <el-step title="上传相关附件" icon="el-icon-upload" />
       <el-step title="检查确认" icon="el-icon-picture" />
@@ -9,42 +9,37 @@
     <div style="display:flex;justify-content:space-around">
       <el-button v-if="stepActivate >= 1" style="margin-top: 12px" @click="stepActivate-=1">上一步</el-button>
       <el-button v-if="stepActivate <=1 " style="margin-top: 12px" @click="stepActivate+=1">下一步</el-button>
-    </div>
-    <el-divider />
+    </div> -->
     <el-form ref="form" :model="paperForm" label-width="120px">
+      <el-form-item label="标题">
+        <el-input v-model="paperForm.title" />
+      </el-form-item>
+      <el-form-item label="第一作者">
+        <el-select
+          v-model="paperForm.firstAuthor"
+          filterable
+          remote
+          :remote-method="remoteMethod"
+          :loading="paperTypeLoading"
+          placeholder="请输入第一作者"
+        >
+          <el-option v-for="item in firstAuthorList" :key="item.id" :label="item.realName" :value="item.id">
+            <span style="float: left">{{ item.realName }}</span>
+            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.email }}</span>
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="文章类别">
+        <PaperCategorySingle v-model="paperForm.typeId" />
+      </el-form-item>
 
-      <div v-show="stepActivate == 0">
-
-        <el-form-item label="标题">
-          <el-input v-model="paperForm.title" />
-        </el-form-item>
-
-        <el-form-item label="第一作者">
-          <el-select
-            v-model="paperForm.firstAuthor"
-            filterable
-            remote
-            :remote-method="remoteMethod"
-            :loading="paperTypeLoading"
-            placeholder="请输入第一作者"
-          >
-            <el-option v-for="item in firstAuthorList" :key="item.id" :label="item.realName" :value="item.id">
-              <span style="float: left">{{ item.realName }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.email }}</span>
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="文章类别">
-          <PaperCategorySingle v-model="paperForm.typeId" />
-        </el-form-item>
-
-        <el-form-item label="其他作者">
-          <el-input v-model="paperForm.otherAuthor" />
-        </el-form-item>
-        <el-form-item label="关键字">
-          <el-input v-model="paperForm.primaryKey" />
-        </el-form-item>
-        <!-- <el-form-item label="日期">
+      <el-form-item label="其他作者">
+        <el-input v-model="paperForm.otherAuthor" />
+      </el-form-item>
+      <el-form-item label="关键字">
+        <el-input v-model="paperForm.primaryKey" />
+      </el-form-item>
+      <!-- <el-form-item label="日期">
           <el-col :span="11">
             <el-date-picker v-model="paperForm.date1" type="date" placeholder="Pick a date" style="width: 100%;" />
           </el-col>
@@ -53,10 +48,10 @@
             <el-time-picker v-model="paperForm.date2" type="fixed-time" placeholder="Pick a time" style="width: 100%;" />
           </el-col>
         </el-form-item> -->
-        <!-- <el-form-item label="Instant delivery">
+      <!-- <el-form-item label="Instant delivery">
           <el-switch v-model="paperForm.delivery" />
         </el-form-item> -->
-        <!-- <el-form-item label="Activity type">
+      <!-- <el-form-item label="Activity type">
           <el-checkbox-group v-model="paperForm.type">
             <el-checkbox label="Online activities" name="type" />
             <el-checkbox label="Promotion activities" name="type" />
@@ -64,41 +59,36 @@
             <el-checkbox label="Simple brand exposure" name="type" />
           </el-checkbox-group>
         </el-form-item> -->
-        <!-- <el-form-item label="Resources">
+      <!-- <el-form-item label="Resources">
           <el-radio-group v-model="paperForm.resource">
             <el-radio label="Sponsor" />
             <el-radio label="Venue" />
           </el-radio-group>
         </el-form-item> -->
-        <el-form-item label="摘要">
-          <el-input v-model="paperForm.abstractContext" autosize type="textarea" />
-        </el-form-item>
-        <!-- <el-form-item>
+      <el-form-item label="摘要">
+        <el-input v-model="paperForm.abstractContext" autosize type="textarea" />
+      </el-form-item>
+      <!-- <el-form-item>
           <el-button type="primary" @click="onSubmit">Create</el-button>
         </el-form-item> -->
-      </div>
-      <div v-show="stepActivate == 1">
-        <el-form-item label="上传论文文件">
-          <el-upload
-            class="upload-demo"
-            drag
-            :data="paperFileData"
-            :file-list="paperFileList"
-            :before-upload="handleBeforePaperUpload"
-            :on-success="handlePaperUploadSuccess"
-            action="https://paper-submission.oss-cn-shanghai.aliyuncs.com"
-          >
-            <i class="el-icon-upload" />
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div slot="tip" class="el-upload__tip">只能上传pdf/docx文件，大小限制100MB</div>
-          </el-upload>
-        </el-form-item>
-      </div>
-      <div v-show="stepActivate == 2">
-        <!-- <el-col /> -->
-        <el-button @click="submitPaper">提交论文</el-button>
+      <el-form-item label="上传论文文件">
+        <el-upload
+          class="upload-demo"
+          drag
+          :data="paperFileData"
+          :file-list="paperFileList"
+          :before-upload="handleBeforePaperUpload"
+          :on-success="handlePaperUploadSuccess"
+          action="https://paper-submission.oss-cn-shanghai.aliyuncs.com"
+        >
+          <i class="el-icon-upload" />
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div slot="tip" class="el-upload__tip">只能上传pdf/docx文件，大小限制100MB</div>
+        </el-upload>
+      </el-form-item>
+      <!-- <el-col /> -->
+      <el-button style="margin-left:120px" @click="submitPaper">提交论文</el-button>
 
-      </div>
     </el-form>
   </div>
 </template>

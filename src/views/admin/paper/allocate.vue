@@ -6,8 +6,8 @@
         <el-table-column align="center" prop="firstAuthor" label="第一作者" width="100" />
         <el-table-column show-overflow-tooltip align="center" prop="inviteNum" label="可分配审稿人" />
       </template>
-      <!-- <template v-slot:option="slotProps"> -->
-      <template>
+      <template v-slot:option="slotProps">
+        <!-- <template v-slot> -->
         <!-- <el-button type="primary" size="mini" @click="handleEdit(slotProps.scope.$index, slotProps.scope.row)">分配审稿人
         </el-button> -->
         <el-button size="mini" type="primary" plain>

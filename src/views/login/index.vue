@@ -120,8 +120,8 @@ export default {
       },
       loginForm: {
         // role: '0',
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '12345'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -259,10 +259,12 @@ $dark_gray:#889aa4;
 $light_gray:#eee;
 
 .login-container {
-  min-height: 100%;
   width: 100%;
-  background-color: $bg;
-  overflow: hidden;
+  height: 100%;
+  background-image: url("../../assets/fmt16.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
 
   .login-form {
     position: relative;
