@@ -1,3 +1,4 @@
+os: linux
 language: node_js
 node_js:
 - 16.15.0
@@ -29,8 +30,3 @@ addons:
 
 after_success: # script 阶段成功时执行
 # - scp  -o stricthostkeychecking=no -r ./dist/* root@47.103.212.239:/paperSubmission/frontend_travis/  # 使用scp拷贝到服务
-
-
-branches:
-  only:
-  - master
